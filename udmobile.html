@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-Type" content="text/html; charset=utf-8">
+    <title>有盾报告</title>
+	<link rel="stylesheet" href="./css/layui.css" type="text/css" media="all">
+	<link href="./css/mobile.css" rel="stylesheet"  type="text/css" />
+	<link href="./css/normalize.css" rel="stylesheet" type="text/css"  />
+	<link href="./css/base.css"  rel="stylesheet" type="text/css" />
+	<link href="./css/project_base.css"  rel="stylesheet" type="text/css" />
+	<link href="./css/radialindicator.css"  rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+	<script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/base.js"></script>
+	<script type="text/javascript" src="./js/project_base.js"></script>
+	<script type="text/javascript" src="./js/mobile.js"></script>
+	<script type="text/javascript" src="./echarts-2.2.7/src/theme/macarons.js"></script>
+</head>
+<body>
+	<div class="t">
+			<div class="layui-row" style="margin-left: 20px;margin-top: 30px">
+					<div class="layui-col-xs6">
+							<div class="layui-card">
+									<div class="layui-card-header title" >基本信息</div>
+									<div class="layui-card-body" style="margin-left: 20px; font-size: 15px">
+										<div>可信姓名：<span id="nameCredible"></span></div><br>
+										<div>性别:<span id="gender"></span></div><br>
+										<div>民族：<span id="nation"></span></div><br>
+										<div>身份证号：<span id="idNumberMask"></span></div><br>
+										<div>住址：<span id="address"></span></div><br>
+									</div>
+								</div>
+					</div>
+					<div class="layui-col-xs6">
+							<div class="layui-card">
+									<div class="layui-card-header model">贷前模型分析</div>
+										
+											<div class="layui-card-body">
+												<div >
+													<div class="prg-cont rad-prg" id="indicatorContainer"></div>
+													<div class="fx" id="riskEvaluation"></div>
+												</div>
+										</div>
+								</div>
+					</div>
+				</div>
+				<div class="layui-row" style="margin-left: 20px;margin-top: 20px">
+						<div class="layui-col-xs12">
+								<div class="layui-card">
+										<div class="layui-card-header title">用户特征</div>
+										<div class="layui-card-body">
+											<div class="features"> 
+												<div class="colorBlock" id="t1">多头借贷<br/><span id="lastModifiedDate1"></span></div>
+												<div class="colorBlock" id="t2">投资达人<br/><span id="lastModifiedDate2"></span></div>
+												<div class="colorBlock" id="t3">羊毛党<br/><span id="lastModifiedDate3"></span></div>
+												<div class="colorBlock" id="t4">旅游达人<br/><span id="lastModifiedDate4"></span></div>
+												<div class="colorBlock" id="t5">游戏迷<br/><span id="lastModifiedDate5"></span></div>
+												<div class="colorBlock" id="t6">作弊软件<br/><span id="lastModifiedDate6"></span></div>
+												<div class="colorBlock" id="t7">法院失信<br/><span id="lastModifiedDate7"></span></div>
+												<div class="colorBlock" id="t8">网贷失信<br/><span id="lastModifiedDate8"></span></div>
+												<div class="colorBlock" id="t9">关联过多<br/><span id="lastModifiedDate9"></span></div>
+												<div class="colorBlock" id="t10">主动履约用户<br/><span id="lastModifiedDate10"></span></div>
+												<div class="colorBlock" id="t11">曾使用可疑设备<br/><span id="lastModifiedDate11"></span></div>
+												<div class="colorBlock" id="t12">安装极多借贷APP<br/><span id="lastModifiedDate12"></span></div>
+												<div class="colorBlock" id="t13">高风险失信用户<br/><span id="lastModifiedDate13"></span></div>
+												<div class="colorBlock" id="t14">身份信息疑似泄露<br/><span id="lastModifiedDate14"></span></div>
+												<div class="colorBlock" id="t15">阿里小号<br/><span id="lastModifiedDate15"></span></div>
+												<div class="colorBlock" id="t16">虚假手机号<br/><span id="lastModifiedDate16"></span></div>
+												<div class="colorBlock" id="t17">中风险失信用户<br/><span id="lastModifiedDate17"></span></div>
+												<div class="colorBlock" id="t18">活体攻击设备<br/><span id="lastModifiedDate18"></span></div>
+												<div class="colorBlock" id="t19">活体攻击行为<br/><span id="lastModifiedDate19"></span></div>
+												<div class="colorBlock" id="t20">疑似欺诈团伙<br/><span id="lastModifiedDate20"></span></div>
+												<div class="colorBlock" id="t21">网贷不良<br/><span id="lastModifiedDate21"></span></div>
+												<div class="colorBlock" id="t22">短期逾期<br/><span id="lastModifiedDate22"></span></div>
+											</div>
+										</div>
+									</div> 
+						</div>
+					</div>
+						<div class="layui-row" style="margin-left: 20px;margin-top: 30px">
+										<div class="layui-card-header title">借贷行为</div>
+								<div class="layui-col-xs5">
+										<div id="main" style="width: 100%;height:380px"></div>
+								</div>
+								<div class="layui-col-xs4">
+										<div id="h" style="width: 100%;height:380px;margin-left: 20px;float: left"></div>
+									</div>
+									<div class="layui-col-xs3">
+											<div class="barInfo">
+													<p>总申请借款平台数：<span id="loanPlatformCount"></span></p>
+													<p>最近申请借款时间：<span></span></p>
+													<p>总借款平台数：<span id="actualLoanPlatformCount"></span></p>
+													<p>总还款平台数：<span id="repaymentPlatformCount"></span></p>
+													<p>还款笔数：<span id="repaymentTimesCount"></span></p>
+													<p>最近还款时间：<span></span></p>
+											</div>
+										</div>
+										</div>
+										<div class="layui-row" style="margin-left: 20px;margin-top: 30px">
+												<div class="layui-col-xs12">
+														<div class="table">
+																<table class="layui-table">
+																		<thead>
+																			<tr>
+																			<th>今日申请借款平台数</th>
+																			<th>今日申请借款次数</th>
+																			<th>今日申请借款设备数</th>
+																			<th>今日每小时申请借款次数最大值</th>
+																			<th>今日每小时申请借款平台数最大值</th>
+																			</tr> 
+																		</thead>
+																		<tbody>
+																			<tr>
+																			<td id="todayRequestLoanP"></td>
+																			<td id="todayRequestLoanFre"></td>
+																			<td id="todayRequestLoanDivice"></td>
+																			<td id="todayRequestLoanFreMax"></td>
+																			<td id="todayRequestLoanPMax"></td>
+																			</tr>
+																		</tbody>
+																		</table>
+														</div>
+												</div>
+										</div>
+										<div class="layui-row" style="margin-left: 20px;margin-top: 30px">
+												<div class="layui-col-xs12">
+														<div class="ud-info">
+																<p><span class="span">＊</span>（有盾大数据系统拥有覆盖互联网借贷全行业的数据，包括小额现金贷款、大学生分期、电商分期、旅游分期、医美分期、教育、汽车、租房、农业消金等十余个细分项目，下方表格仅展示该用户有匹配到数据的行业清单）</p>
+															</div>
+												</div>
+										</div>
+										<div class="layui-row" style="margin-left: 20px;margin-top: 30px">
+												<div class="layui-col-xs12">
+														<div class="device">
+																<div class="layui-card">
+																	<div class="layui-card-header title" style="margin-left: 25px">移动设备使用情况</div>
+																</div>
+																<!-- <div class="ud-info" style="margin-top: 10px"> -->
+															<p class="tableTitle">&nbsp;&nbsp;<span class="span">*</span>&nbsp;&nbsp;该用户共使用<span class="span" id="amount"></span>个设备，下方仅展示设备的最新信息。</p>
+																<!-- </div> -->
+																	<div class="device-wrapper">
+																	  <ul id="device"></ul>
+																</div>
+														</div>
+												</div>
+										</div>
+  </div>
+		<script type="text/javascript">
+			// 基于准备好的dom，初始化echarts实例
+			// var myChart = echarts.init(document.getElementById('main'),'macarons');
+			//
+			// // 指定图表的配置项和数据
+			// var option = {
+			// 	tooltip: {
+			// 		trigger: 'axis',
+			// 		axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+			// 		type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			// 		}
+			// 	},
+			// 	legend: {
+			// 		data: ['申请借款', '借款'],
+			// 		right: 0,
+			// 		itemGap: 50
+			// 	},
+			// 	grid: {
+			// 		left: '5%',
+			// 		right: '4%',
+			// 		bottom: '3%',
+			// 		containLabel: true
+			// 	},
+			// 	xAxis: [
+			// 		{
+			// 		type: 'category',
+			// 		data: ['总计', '近6月', '近3月', '近1月'],
+			// 		axisTick: {
+			// 			alignWithLabel: false
+			// 		}
+			// 		}
+			// 	],
+			// 	yAxis: [
+			// 		{
+			// 		type: 'value',
+			// 		splitLine: { show: false }
+			// 		}
+			// 	],
+			// 	series : [
+			// 		{
+			// 			name:'申请借款',
+			// 			type:'bar',
+			// 			data:[2.0, 4.9, 7.0, 23.2],
+			// 			barWidth: 30,
+			// 			barGap: 0,
+			// 			itemStyle: {
+			// 				normal: {
+			// 				color: '#4694D9'
+			// 				}
+			// 			},
+			// 			label: {
+			// 				normal: {
+			// 				show: true,
+			// 				position: 'top'
+			// 				}
+			// 			},
+			// 		},
+			// 		{
+			// 			name:'借款',
+			// 			type:'bar',
+			// 			data:[2.6, 5.9, 9.0, 26.4],
+			// 			barWidth: 30,
+			// 			itemStyle: {
+			// 				normal: {
+			// 				color: '#77D7E8'
+			// 				}
+			// 			},
+			// 			label: {
+			// 				normal: {
+			// 				show: true,
+			// 				position: 'top'
+			// 				}
+			// 			},
+			// 		}
+			// 	]
+			// 	};
+            //
+			//
+			// // 使用刚指定的配置项和数据显示图表。
+			// myChart.setOption(option);
+		</script>
+		<script type="text/javascript">
+			// 基于准备好的dom，初始化echarts实例
+			// var myCharts = echarts.init(document.getElementById('h'));
+			//
+			// // 指定图表的配置项和数据
+			// var option = {
+			// 	color:"#000",
+			// 	tooltip: {
+			// 		trigger: 'axis',
+			// 		axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+			// 		type: 'shadow'          // 默认为直线，可选为：'line' | 'shadow'
+			// 		}
+			// 	},
+			// 	legend: {
+			// 		data: ['还款'],
+			// 		left: 25,
+			// 		itemGap: 50
+			// 	},
+			// 	grid: {
+			// 		left: '5%',
+			// 		right: '4%',
+			// 		bottom: '3%',
+			// 		containLabel: true
+			// 	},
+			// 	xAxis: [
+			// 		{
+			// 		type: 'category',
+			// 		data: ['总计', '近6月', '近3月', '近1月'],
+			// 		axisTick: {
+			// 			alignWithLabel: false
+			// 		}
+			// 		}
+			// 	],
+			// 	yAxis: [
+			// 		{
+			// 		type: 'value',
+			// 		splitLine: { show: false }
+			// 		}
+			// 	],
+			// 	series: [
+			// 	{
+			// 			name:'还款',
+			// 			type:'bar',
+			// 			data:[2.6, 5.9, 9.0, 26.4],
+			// 			barWidth: 30,
+			// 			itemStyle: {
+			// 				normal: {
+			// 				color: '#25B97D'
+			// 				}
+			// 			},
+			// 			label: {
+			// 				normal: {
+			// 				show: true,
+			// 				position: 'top'
+			// 				}
+			// 			},
+			// 		}
+			// 	]
+			// 	};
+			//
+			// // 使用刚指定的配置项和数据显示图表。
+			// myCharts.setOption(option);
+		</script>
+	<script type="text/javascript" src="./js/radia1Indicator.js"></script>
+		<script type="text/javascript">
+				// 	$('#indicatorContainer').radialIndicator({
+				// 		initValue: 40,//score
+				// 		percentage: true
+				// });
+			</script>
+		 <script type="text/javascript">
+			  SyntaxHighlighter.defaults['toolbar'] = false;
+			  SyntaxHighlighter.all();
+			</script>
+
+</body>
+
+</html>

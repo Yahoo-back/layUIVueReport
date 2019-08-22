@@ -1,0 +1,193 @@
+.title {
+    text-align: center;
+}
+.topImg {
+    width: 100%;
+    height: 80px;
+    background: #d0a15a;
+}
+.img {
+    margin-left: 30px;
+    height: 80px;
+}
+.navTitle {
+    width: 50%;
+    height: 30px;
+    margin-top: 50px;
+    margin-left: 25%;
+}
+.navTitle .search {
+    float: left
+}
+.navTitle .right {
+    float: right
+}
+.table {
+    width: 100%;
+    height: 100%;
+    margin-top: 40px;
+    /* padding-top: 40px; */
+    padding-bottom: 20px;
+    margin: 0 auto;
+}
+.baseInfo {
+    /* background: #c3d08b; */
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow: 5px 5px 5px #2f3e8a;
+}
+.footer {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    background: #f5f7f3;
+
+}
+h3 {
+    padding-top: 20px;
+    /* text-align: center; */
+    padding-left: 34px;
+    text-shadow: 5px 5px 5px #d0a15a;
+    letter-spacing: 2px;
+}
+h4 {
+    padding-top: 20px;
+
+    text-align: center;
+    letter-spacing: 2px;
+}
+.nameColor {
+    background-color: #f5f7f3;
+}
+.bgColor {
+    font-weight: bold;
+    background-color: #c3d08b;
+}
+/* .bottomColor {
+    border-bottom: 3px solid #5290a9;
+} */
+.footerText {
+    width: 100%;
+    height: 100%;
+    line-height: 20px;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 50px;
+}
+.footerText span {
+    line-height: 28px;
+    padding: 10px 5px;
+    font-size: 15px;
+}
+.tdbgColor {
+    width: 100%;
+    /* background: #a8aba1; */
+}
+.ytd {
+    height: 20px;
+}
+.text {
+    width: 90%;
+    height: 100%;
+    border-radius: 5px;
+    margin-top: 30px;
+    padding: 5px 5px;
+    margin-left: 5%;
+    background: #c3d08b;
+    display: flex;
+}
+.left {
+    width: 20%;
+    height: 100%;
+    font-weight: bold;
+    /* text-align: center; */
+    justify-content: center;
+}
+.middle {
+    width: 75%;
+    height: 100%;
+    font-weight: bold;
+    justify-content: center;
+    text-align: center;
+}
+/* .right {
+    width: 15%;
+} */
+.textColor {
+    font-weight: bold;
+}
+
+.userInfo {
+    width: 90%;
+    height: 100%;
+    margin-left: 5%;
+    /* background-color: #daaa64; */
+    border-radius: .8rem;
+    /* opacity: 0.2; */
+    background-color:#f5f7f3;
+    border: 1px solid #c3d08b;
+    /* background-color:rgba(0,0,0,0.1); */
+    
+}
+.userBox {
+    /* flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-around; */
+    width: 100%;
+    /* margin-left: 20%; */
+    height: 100%;
+   
+    /* background-color: red; */
+   
+}
+.top {
+    padding: 10px 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+.down {
+    padding: 10px 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+.top .left {
+    width: 45%;
+    margin-left: 5%;
+    height: 100%;
+    /* color: #000; */
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    /* background: yellow; */
+}
+.top .left span{
+    /* display: block; */
+    margin-left: 15px;
+}
+.top .left span {
+    text-align: center;
+}
+.top .right span{
+    /* display: block; */
+    margin-left: 15px;
+}
+.top .right {
+    width: 40%;
+    margin-left: 5%;
+    /* margin-left: 15%; */
+    font-size: 15px;
+    font-weight: bold;
+    height: 100%;
+    /* background: yellowgreen; */
+}
+.top .right span {
+    text-align: center;
+}
+.top .right .anotherPhone {
+    margin-left: 10px;
+}

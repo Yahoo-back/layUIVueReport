@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8">
+    <title>多头报告</title>
+    <link rel="stylesheet" href="./css/layui.css" type="text/css" media="all">
+    <link href="./css/mobile.css" rel="stylesheet"  type="text/css" />
+    <link href="./css/normalize.css" rel="stylesheet" type="text/css"  />
+    <link href="./css/base.css"  rel="stylesheet" type="text/css" />
+    <link href="./css/project_base.css"  rel="stylesheet" type="text/css" />
+    <link href="./css/radialindicator.css"  rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/base.js"></script>
+    <script type="text/javascript" src="./js/project_base.js"></script>
+    <script type="text/javascript" src="./js/dt.js"></script>
+    <link rel="stylesheet" href="./css/dt.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script type="text/javascript" src="../h5/echarts-2.2.7/src/theme/macarons.js"></script>
+    <!-- import Vue before Element -->
+    <script type="text/javascript" src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script type="text/javascript" src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+
+<div class="t">
+    <div class="layui-row" style="margin-left: 20px;margin-top: 30px">
+        <div class="layui-col-xs6">
+            <div class="layui-card">
+                <div class="layui-card-header title" >基本信息</div>
+                <div class="layui-card-body" style="margin-left: 20px; font-size: 15px">
+                    <div>姓名：<span id="name"></span></div><br>
+                    <div>性别:<span id="gender"></span></div><br>
+                    <div>身份证号：<span id="idNumberMask"></span></div><br>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs6">
+            <div class="layui-card">
+                <div class="layui-card-header model">贷前模型分析</div>
+                <div class="layui-card-body">
+                    <div >
+                        <div class="prg-cont rad-prg" id="indicatorContainer"></div>
+                        <div class="fx" id="riskEvaluation"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row" style="margin-left: 20px;margin-top: 30px">
+        <div class="layui-col-xs12">
+            <div class="table">
+                <div class="layui-card-header title" >风险名单结果集</div>
+                <table class="layui-table" style="width: 90%; margin-left: 5%;">
+                    <thead>
+                    <tr>
+                        <th>名单类型 </th>
+                        <th>风险命中项</th>
+                        <th>风险命中内容</th>
+                        <th>风险最近时间</th>
+                        <th>风险明细</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody id="list">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row" style="margin-left: 20px;margin-top: 30px">
+        <div class="layui-col-xs12">
+            <div class="device">
+                <div class="layui-card">
+                    <div class="layui-card-header title" style="margin-left: 25px">社会关系网</div>
+                </div>
+        </div>
+    </div>
+</div>
+    <div id="app">
+        <el-form :model="form" class="form" label-width="220px" >
+            <el-row :gutter="24" class="row">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item class="ll" label="主叫联系人黑名单">
+                        <span class="rcontent" id="activeCallBlackCnt"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="主叫联系人数">
+                        <span class="rcontent" id="activeCallCnt"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="主叫联系人逾期数">
+                        <span class="rcontent" id="activeCallOverdueCnt"></span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="24" class="row">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item class="ll" label="与虚拟号码通话人数 ">
+                        <span class="rcontent" id="fictionCallCnt"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="与虚拟号码通话次数">
+                        <span class="rcontent" id="fictionCallNum"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="与虚拟号码通话秒数 ">
+                        <span class="rcontent" id="fictionCallSeconds"></span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="24" class="row">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item class="ll" label="与银行或同行通话总人数 ">
+                        <span class="rcontent" id="loanCallCnt"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="与银行或同行通话总次数">
+                        <span class="rcontent" id="loanCallNum"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="与银行或同行通话总秒数">
+                        <span class="rcontent" id="loanCallSeconds"></span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="24" class="row">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item class="ll" label="与澳门通话人数">
+                        <span class="rcontent" id="macaoCallCnt"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="与澳门通话次数 ">
+                        <span class="rcontent" id="macaoCallNum"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="与澳门通话秒数 ">
+                        <span class="rcontent" id="macaoCallSeconds"></span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="24" class="row">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item class="ll" label="夜间通话人数 ">
+                        <span class="rcontent" id="nightCallCnt"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="夜间通话次数">
+                        <span class="rcontent" id="nightCallNum"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="夜间通话秒数 ">
+                        <span class="rcontent" id="nightCallSeconds"></span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="24" class="row">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item class="ll" label="异地通话人数">
+                        <span class="rcontent" id="remoteCallCnt"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="异地通话次数 ">
+                        <span class="rcontent" id="remoteCallNum"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="异地通话秒数">
+                        <span class="rcontent" id="remoteCallSeconds"></span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="24" class="row">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item class="ll" label="与法院通话次数">
+                        <span class="rcontent" id="courtCallNum"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="与律师通话总次数 ">
+                        <span class="rcontent" id="lawyerCallNum"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="">
+                        <span class="rcontent"></span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="24" class="row" style="background: #e8f8f3">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item class="ll" label="一阶联系人黑名单个数 ">
+                        <span class="rcontent" id="firstOrderBlackCnt"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="一阶联系人黑名单占比">
+                        <span class="rcontent" id="firstOrderBlackRate"></span>%
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="一阶联系人逾期M3+个数 ">
+                        <span class="rcontent" id="firstOrderM3Cnt"></span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="24" class="row" style="background: #e8f8f3">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item class="ll" label="一阶联系人逾期个数">
+                        <span class="rcontent" id="firstOrderOverdueCnt"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="一阶联系人逾期占比">
+                        <span class="rcontent" id="firstOrderOverdueRate"></span>%
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="">
+                        <span class="rcontent" id="t"></span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="24" class="row" style="background: #e8f8f3">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item class="ll" label="二阶联系人黑名单个数">
+                        <span class="rcontent" id="secondOrderBlackCnt"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="二阶联系人逾期M3+个数">
+                        <span class="rcontent" id="secondOrderM3Cnt"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="二阶联系人逾期个数">
+                        <span class="rcontent" id="secondOrderOverdueCnt"></span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="24" class="row">
+                <el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10">
+                    <el-form-item class="ll" label="手机号归属地">
+                        <span class="rcontent" id="mobileLocation"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                    <el-form-item label="手机号运营商">
+                        <span class="rcontent" id="mobileOperator"></span>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
+                    <el-form-item label="">
+                        <span class="rcontent"></span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+        </el-form>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: function() {
+            return { visible: false, form: {} }
+        }
+    })
+</script>
+<script type="text/javascript" src="./js/radia1Indicator.js"></script>
+<script type="text/javascript">
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.all();
+</script>
+</body>
+
+
+</html>

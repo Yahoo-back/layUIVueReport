@@ -1,0 +1,87 @@
+.bgfa {
+    background: #fafbff;
+}
+
+body,
+html {
+    height: 100%;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.text {
+    color: #333333;
+    padding: 10px 25px;
+    font-size: 18px;
+    text-indent: 1em;
+}
+
+.text span {
+    color: #1892e8;
+    font-size: 25px;
+}
+
+.wx-code {
+    color: #999999;
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.wx-code dd {
+    margin: 18px 0;
+}
+
+.copyright {
+    color: #999999;
+    font-size: 12px;
+    padding: 18px 0;
+}
+
+.download {
+    overflow: hidden;
+}
+
+.download dt {
+    color: #999999;
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.download dd {
+    margin-bottom: 22px;
+}
+
+.icon-ios {
+    width: 24px;
+    height: 29px;
+    background: url('../images/icon-ios.png') no-repeat center center;
+    background-size: contain;
+}
+
+.icon-android {
+    width: 24px;
+    height: 29px;
+    background: url('../images/icon-android.png') no-repeat center center;
+    background-size: contain;
+}
+
+.download-btn {
+    width: 80%;
+    height: 50px;
+    line-height: 50px;
+    background: linear-gradient(to bottom, #2ccbe5, #08a4e4);
+    border-radius: 60px;
+    color: #ffffff;
+    font-size: 25px;
+}
+
+.download-btn i {
+    position: relative;
+    top: -3px;
+    margin-right: 15px;
+}
